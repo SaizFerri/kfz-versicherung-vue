@@ -23,21 +23,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'app-personal-details-form',
-  data () {
-    return {
-      titles: [
-        {
-          value: 'herr',
-          display: 'Herr'
-        },
-        {
-          value: 'frau',
-          display: 'Frau'
-        }
-      ]
-    }
+  computed: {
+    ...mapState(['titles'])
   }
 }
 

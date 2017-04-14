@@ -3,11 +3,12 @@
     <div class="large-8 medium-8 small-8 large-offset-2 medium-offset-2 small-offset-2">
       <label>
         Wählen Sie ein Fahrzeug aus:
-        <select class="car-select">
-          <option v-for="car in cars" :value="car.value">{{ car.display }}</option>
+        <select class="car-select" v-model="selectedCarId" @change="selectCar(selectedCarId)">
+          <option disabled value="">Wählen Sie ein Auto</option>
+          <option v-for="car in cars" :value="car.id" :selected="car.id === selectedCar.id">{{ car.display }}</option>
         </select>
       </label>
-      <label class="add-car is-hidden">
+      <label class="add-car">
         Geben Sie die Daten für das neue Fahrzeug ein:
         <div class="row add-car-form">
           <div class="large-6 column add-car-model">
@@ -17,7 +18,7 @@
             <input type="number" class="car-power" placeholder="Leistung">
           </div>
         </div>
-        <div class="alert callout is-hidden car-alert" data-closable>
+        <div class="alert callout car-alert" data-closable>
           <span>Alle Felder sind erforderlich!</span>
           <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
             <span aria-hidden="true">&times;</span>
@@ -32,28 +33,32 @@
       <div class="large-8 medium-8 small-8 large-offset-2 medium-offset-2 small-offset-2">
       <label>
         Wählen Sie eine SF-Klasse:
-        <select class="sf-select">
-          <option v-for="sfklass in sfklasses" :value="sfklass.value">{{ sfklass.display }}</option>
+        <select class="sf-select" v-model="selectedSfId" @change="selectSf(selectedSfId)">
+          <option disabled value="">Wählen Sie eine SF-Klasse</option>
+          <option v-for="sfklass in sfklasses" :value="sfklass.id" :selected="sfklass.value === selectedSf.value">{{ sfklass.display }}</option>
         </select>
       </label>
       </div>
       <!--End of the select for the SF-Klasse-->
       <!--Radio button group to select the type of the insurance-->
       <div class="large-8 medium-8 small-8 large-offset-2 medium-offset-2 small-offset-2">
-      <label>
-        Wählen Sie eine Versicherungsart:
-        <div class="button-group">
-          <input type="radio" name="insurance-type" value="vollkasko" id="vollkasko" checked><label for="vollkasko">Vollkasko</label>
-          <input type="radio" name="insurance-type" value="teilkasko" id="teilkasko"><label for="teilkasko">Teilkasko</label>
-        </div>
-      </label>
+        <label>
+          Wählen Sie eine Versicherungsart:
+          <div class="button-group">
+            <span v-for="insurance in insuranceTypes" @change="selectInsurance(insurance)">
+              <input type="radio" name="insurance-type" :value="insurance.value" :checked="insurance.value === selectedInsurance.value">
+              <label>{{insurance.display}}</label>
+            </span>
+          </div>
+        </label>
       </div>
       <!--End of the radio button group to select the type of the insurance-->
       <div class="large-8 medium-8 small-8 large-offset-2 medium-offset-2 small-offset-2">
       <label>
         Wählen Sie einen Tarif:
-        <select class="tariff-select">
-          <option v-for="tariff in tariffs" :value="tariff.value">{{ tariff.display }}</option>
+        <select class="tariff-select" v-model="selectTariffId" @change="selectTariff(selectTariffId)">
+          <option disabled value="">Wählen Sie einen Tarif</option>
+          <option v-for="tariff in tariffs" :value="tariff.id" :selected="tariff.value === selectedTariff.value">{{ tariff.display }}</option>
         </select>
       </label>
     </div>
@@ -61,60 +66,44 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'app-insurance-details-form',
   data () {
     return {
-      cars: [
-        {
-          value: 85,
-          display: 'Audi A3 1.6 TDI 85 kW'
-        },
-        {
-          value: 120,
-          display: 'BMW 220D Gran Tourer 120 kW'
-        },
-        {
-          value: 125,
-          display: 'MINI Cooper 2.0 SD 125 kW'
-        },
-        {
-          value: 183,
-          display: 'BMW 530D Touring 183 kW'
-        }
-      ],
-      sfklasses: [
-        {
-          value: 0.74,
-          display: 'SF1/2 - 74%'
-        },
-        {
-          value: 0.6,
-          display: 'SF1 - 60%'
-        },
-        {
-          value: 0.55,
-          display: 'SF2 - 55%'
-        },
-        {
-          value: 0.48,
-          display: 'SF3 - 48%'
-        }
-      ],
-      tariffs: [
-        {
-          value: 0.15,
-          display: 'Basic'
-        },
-        {
-          value: 0.35,
-          display: 'Comfort'
-        },
-        {
-          value: 0.5,
-          display: 'Premium'
-        }
-      ]
+      selectedCarId: '',
+      selectedSfId: '',
+      selectTariffId: ''
+    }
+  },
+  computed: {
+    ...mapState(['cars', 'sfklasses', 'insuranceTypes', 'tariffs', 'selectedCar', 'selectedSf', 'selectedTariff', 'selectedInsurance'])
+  },
+  methods: {
+    selectCar (selectedCarId) {
+      this.$store.commit({
+        type: 'selectCar',
+        carId: selectedCarId
+      })
+    },
+    selectSf (selectedSfId) {
+      this.$store.commit({
+        type: 'selectSf',
+        sfId: selectedSfId
+      })
+    },
+    selectInsurance (insurance) {
+      this.$store.commit({
+        type: 'selectInsurance',
+        insuranceId: insurance.id
+      })
+    },
+    selectTariff (selectTariffId) {
+      this.$store.commit({
+        type: 'selectTariff',
+        tariffId: selectTariffId
+      })
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="price-parent large-12 medium-12 small-12" data-sticky-container>
-    <div class="price-container sticky" data-sticky data-sticky-on="small">
+    <div class="price-container sticky is-suck" data-sticky data-sticky-on="small">
       <h5 class="sum-title">Monatliche Betrag: </h5>
       <hr>
       Automodel: <span>{{ car }}</span> €
@@ -21,32 +21,37 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'app-result-container',
-  data () {
-    return {
-      car: 0,
-      sfklass: 0,
-      insurance: 0,
-      tariff: 0
-    }
-  },
   computed: {
+    ...mapState(['selectedCar', 'selectedSf', 'selectedInsurance', 'selectedTariff', 'basicPrice']),
     sum () {
       return this.car + this.sfklass + this.insurance + this.tariff
+    },
+    car () {
+      return Math.round(((this.selectedCar.value * this.basicPrice) * 0.1) * 100) / 100
+    },
+    sfklass () {
+      return Math.round(((this.selectedSf.value * this.basicPrice) * 0.3) * 100) / 100
+    },
+    insurance () {
+      return Math.round(((this.selectedInsurance.value * this.basicPrice) * 0.25) * 100) / 100
+    },
+    tariff () {
+      return Math.round(((this.selectedTariff.value * this.basicPrice) * 0.35) * 100) / 100
     }
   }
 }
 </script>
 
 <style scoped>
-
 .sum-title {
   font-family: 'Raleway';
 }
 
 .price-parent {
-  height: 100%;
+  min-height: 100%;
   width: 100%;
 }
 
