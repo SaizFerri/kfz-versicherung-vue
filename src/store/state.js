@@ -1,9 +1,18 @@
+/**
+ * The main state from my application
+ */
 export default {
+  /**
+   * Form array for the drivers
+   */
   drivers: [
     {
       id: 1
     }
   ],
+  /**
+   * Cars array for the select DOM element
+   */
   cars: [
     {
       id: 1,
@@ -26,6 +35,9 @@ export default {
       display: 'BMW 530D Touring 183 kW'
     }
   ],
+  /**
+   * SF-Klasses array for the select DOM element
+   */
   sfklasses: [
     {
       id: 1,
@@ -48,6 +60,9 @@ export default {
       display: 'SF3 - 48%'
     }
   ],
+  /**
+   * Both radio buttons for the insurance type
+   */
   insuranceTypes: [
     {
       id: 1,
@@ -60,6 +75,9 @@ export default {
       display: 'Teilkasko'
     }
   ],
+  /**
+   * Tariffs array for the select DOM element
+   */
   tariffs: [
     {
       id: 1,
@@ -77,6 +95,9 @@ export default {
       display: 'Premium'
     }
   ],
+  /**
+   * Titles for the drivers form
+   */
   titles: [
     {
       value: 'herr',
@@ -87,19 +108,34 @@ export default {
       display: 'Frau'
     }
   ],
+  /**
+   * Basic insurance price to calculate the end price
+   */
   basicPrice: 100,
+  /**
+   * Gets the selected car in the select DOM
+   */
   selectedCar: {
     id: 0,
     value: 0
   },
+  /**
+   * Gets the selected SF-Klass in the select DOM
+   */
   selectedSf: {
     id: 0,
     value: 0
   },
+  /**
+   * Gets the selected insurance type radio buttons
+   */
   selectedInsurance: {
     id: 1,
     value: 0.75
   },
+  /**
+   * Gets the selected tariff in the select DOM
+   */
   selectedTariff: {
     id: 0,
     value: 0
