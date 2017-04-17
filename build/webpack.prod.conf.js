@@ -27,6 +27,12 @@ var webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'foundation-sites/vendor/jquery/dist/jquery.js',
+      'window.$': 'foundation-sites/vendor/jquery/dist/jquery.js',
+      jQuery: 'foundation-sites/vendor/jquery/dist/jquery.js',
+      'window.jQuery': 'foundation-sites/vendor/jquery/dist/jquery.js'
+    }),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env

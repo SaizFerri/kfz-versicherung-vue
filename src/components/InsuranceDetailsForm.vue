@@ -47,7 +47,7 @@
           <div class="button-group">
             <span v-for="insurance in insuranceTypes" @change="selectInsurance(insurance)">
               <input type="radio" name="insurance-type" :value="insurance.value" :checked="insurance.value === selectedInsurance.value">
-              <label>{{insurance.display}}</label>
+              <label>{{insurance.display}}</label><br>
             </span>
           </div>
         </label>
