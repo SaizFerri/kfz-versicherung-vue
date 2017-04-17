@@ -8,7 +8,7 @@
           <option v-for="car in cars" :value="car.id" :selected="car.id === selectedCar.id">{{ car.display }}</option>
         </select>
       </label>
-      <label v-if="displayAddCars.display == true" class="add-car">
+      <label v-if="displayAddCars.display" class="add-car">
         Geben Sie die Daten für das neue Fahrzeug ein:
         <div class="row add-car-form">
           <div class="large-6 column add-car-model">
@@ -18,7 +18,7 @@
             <input type="number" class="car-power" v-model="carPower" placeholder="Leistung">
           </div>
         </div>
-        <div v-if="displayAddCars.displayAlert == true" class="alert callout car-alert" data-closable>
+        <div v-if="displayAddCars.displayAlert" class="alert callout car-alert" data-closable>
           <span>Alle Felder sind erforderlich!</span>
           <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
             <span aria-hidden="true">&times;</span>
@@ -26,7 +26,7 @@
         </div>
       </label>
       <button class="button display-car-button" type="button" @click="displayAddCar">Fahrzeug hinzufügen</button>
-      <button class="button add-car-button" v-if="displayAddCars.display == true" type="button" @click="addCar(carName, carPower)">Speichern</button>
+      <button class="button add-car-button" v-if="displayAddCars.display" type="button" @click="addCar(carName, carPower)">Speichern</button>
       </div>
       <!--End of the select for the car model-->
       <!--Select for the SF-Klasse-->

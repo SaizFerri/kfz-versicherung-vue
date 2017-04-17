@@ -24,8 +24,6 @@
 import { mapState } from 'vuex'
 export default {
   name: 'app-result-container',
-  methods: {
-  },
   computed: {
     ...mapState(['selectedCar', 'selectedSf', 'selectedInsurance', 'selectedTariff', 'basicPrice']),
     sum () {
