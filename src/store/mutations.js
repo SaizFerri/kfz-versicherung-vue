@@ -122,11 +122,11 @@ export default {
       display: true,
       displayAlert: true
     }
-    setTimeout(() => {
-      state.displayAddCars = {
-        display: true,
-        displayAlert: false
-      }
-    }, 2000)
+  },
+  addCarHideAlert (state) {
+    state.displayAddCars = {
+      display: true,
+      displayAlert: false
+    }
   }
 }

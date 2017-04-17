@@ -115,9 +115,7 @@ export default {
     addCar (carName, carPower) {
       let carValue = 0
       if (carName === '' || carPower === '') {
-        this.$store.commit({
-          type: 'addCarShowAlert'
-        })
+        this.$store.dispatch('addCarAlert')
       } else {
         if (carPower < 100) {
           carValue = 0.15
