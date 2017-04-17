@@ -82,5 +82,51 @@ export default {
     } else {
       state.drivers.splice(state.drivers.length - 1, 1)
     }
+  },
+  /**
+   * Function to display the form to add a new car model
+   * @param {*} state
+   */
+  displayAddCar (state) {
+    if (state.displayAddCars.display === false) {
+      state.displayAddCars = {
+        display: true
+      }
+    } else {
+      state.displayAddCars = {
+        display: false
+      }
+    }
+  },
+  /**
+   * Function to add a new car model to the state
+   * @param {*} state
+   * @param {*} payload
+   */
+  addCar (state, payload) {
+    state.cars.push({
+      id: state.cars.length + 1,
+      value: payload.carValue,
+      display: payload.carName + ' ' + payload.carPower + ' kW'
+    })
+    state.displayAddCars = {
+      display: false
+    }
+  },
+  /**
+   * Function to show the alert in case one of the inputs is empty
+   * @param {*} state
+   */
+  addCarShowAlert (state) {
+    state.displayAddCars = {
+      display: true,
+      displayAlert: true
+    }
+    setTimeout(() => {
+      state.displayAddCars = {
+        display: true,
+        displayAlert: false
+      }
+    }, 2000)
   }
 }

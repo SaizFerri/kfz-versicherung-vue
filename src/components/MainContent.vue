@@ -1,6 +1,5 @@
 <template>
   <div class="column main-content">
-    <h2 class="page-title">KFZ-Versicherungsrechner</h2>
     <div class="row">
       <!--Button group to add and delete a driver-->
       <div class="large-2 small-4 small-offset-2 column">

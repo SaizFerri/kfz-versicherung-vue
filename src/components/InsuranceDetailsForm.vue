@@ -8,25 +8,25 @@
           <option v-for="car in cars" :value="car.id" :selected="car.id === selectedCar.id">{{ car.display }}</option>
         </select>
       </label>
-      <label class="add-car">
+      <label v-if="displayAddCars.display == true" class="add-car">
         Geben Sie die Daten für das neue Fahrzeug ein:
         <div class="row add-car-form">
           <div class="large-6 column add-car-model">
-            <input type="text" class="car-model" placeholder="Model">
+            <input type="text" class="car-model" v-model="carName" placeholder="Model">
           </div>
           <div class="large-6 column add-car-power">
-            <input type="number" class="car-power" placeholder="Leistung">
+            <input type="number" class="car-power" v-model="carPower" placeholder="Leistung">
           </div>
         </div>
-        <div class="alert callout car-alert" data-closable>
+        <div v-if="displayAddCars.displayAlert == true" class="alert callout car-alert" data-closable>
           <span>Alle Felder sind erforderlich!</span>
           <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
       </label>
-      <button class="button display-car-button" type="button">Fahrzeug hinzufügen</button>
-      <button class="button is-hidden add-car-button" type="button">Speichern</button>
+      <button class="button display-car-button" type="button" @click="displayAddCar">Fahrzeug hinzufügen</button>
+      <button class="button add-car-button" v-if="displayAddCars.display == true" type="button" @click="addCar(carName, carPower)">Speichern</button>
       </div>
       <!--End of the select for the car model-->
       <!--Select for the SF-Klasse-->
@@ -74,11 +74,13 @@ export default {
     return {
       selectedCarId: '',
       selectedSfId: '',
-      selectTariffId: ''
+      selectTariffId: '',
+      carName: '',
+      carPower: ''
     }
   },
   computed: {
-    ...mapState(['cars', 'sfklasses', 'insuranceTypes', 'tariffs', 'selectedCar', 'selectedSf', 'selectedTariff', 'selectedInsurance'])
+    ...mapState(['cars', 'displayAddCars', 'sfklasses', 'insuranceTypes', 'tariffs', 'selectedCar', 'selectedSf', 'selectedTariff', 'selectedInsurance'])
   },
   methods: {
     selectCar (selectedCarId) {
@@ -104,6 +106,35 @@ export default {
         type: 'selectTariff',
         tariffId: selectTariffId
       })
+    },
+    displayAddCar () {
+      this.$store.commit({
+        type: 'displayAddCar'
+      })
+    },
+    addCar (carName, carPower) {
+      let carValue = 0
+      if (carName === '' || carPower === '') {
+        this.$store.commit({
+          type: 'addCarShowAlert'
+        })
+      } else {
+        if (carPower < 100) {
+          carValue = 0.15
+        } else if (carPower >= 100 && carPower < 150) {
+          carValue = 0.35
+        } else {
+          carValue = 0.5
+        }
+        this.$store.commit({
+          type: 'addCar',
+          carName: carName,
+          carPower: carPower,
+          carValue: carValue
+        })
+        this.carName = ''
+        this.carPower = ''
+      }
     }
   }
 }

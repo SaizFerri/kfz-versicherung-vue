@@ -1,6 +1,6 @@
 <template>
-  <div class="price-parent large-12 medium-12 small-12" data-sticky-container>
-    <div class="price-container sticky is-suck" data-sticky data-sticky-on="small">
+  <div class="price-parent large-12 medium-12 small-12 sticky-container" data-sticky-container>
+    <div class="price-container sticky" data-sticky data-margin-top='-7' data-sticky-on='small' data-check-every='0'>
       <h5 class="sum-title">Monatliche Betrag: </h5>
       <hr>
       Automodel: <span>{{ car }}</span> €
@@ -24,6 +24,8 @@
 import { mapState } from 'vuex'
 export default {
   name: 'app-result-container',
+  methods: {
+  },
   computed: {
     ...mapState(['selectedCar', 'selectedSf', 'selectedInsurance', 'selectedTariff', 'basicPrice']),
     sum () {
@@ -51,18 +53,16 @@ export default {
 }
 
 .price-parent {
-  min-height: 100%;
   width: 100%;
 }
 
 .price-container {
   margin-top: 0 !important;
   padding: 10px;
-  min-height: 100%;
   background-color: #007ea7;
   color: white;
   bottom: auto;
-  top: 0px;
+  top: 0;
   width: 100%;
 }
 

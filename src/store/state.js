@@ -36,6 +36,13 @@ export default {
     }
   ],
   /**
+   * State for the addCar form
+   */
+  displayAddCars: {
+    display: false,
+    displayAlert: false
+  },
+  /**
    * SF-Klasses array for the select DOM element
    */
   sfklasses: [
